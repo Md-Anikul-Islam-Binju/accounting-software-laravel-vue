@@ -91,7 +91,7 @@
                             <td>{{ data.income_amount }}</td>
                             <td>
                                 <Link class="btn btn-success" :href="route('admin.income.edit',data.id)"  >Edit</Link>
-                                <Link class="btn btn-danger"   @click="destroy(data.id)"   >Delete</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)">Delete</Link>
                             </td>
                         </tr>
                         </tbody>

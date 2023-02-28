@@ -202,11 +202,22 @@ Route::middleware('auth')->group(function () {
     Route::get('double-entry',[DoubleEntryController::class,'doubleEntry'])->name('admin.double.entry');
     //Advance Transaction
     Route::get('advance-transaction',[AdvanceTransactionController::class,'advanceTransaction'])->name('admin.advance.transaction');
+
     //Single Entry
-    Route::get('single-entry',[SingleEntryController::class,'singleEntry'])->name('admin.single.entry');
+    Route::get('single-entry',[SingleEntryController::class,'index'])->name('admin.single.entry');
+    Route::post('single-entry-store',[SingleEntryController::class,'store'])->name('admin.single.entry.store');
+    Route::get('single-entry-edit/{id}',[SingleEntryController::class,'edit'])->name('admin.single.entry.edit');
+    Route::post('single-entry-update/{id}',[SingleEntryController::class,'update'])->name('admin.single.entry.update');
+    Route::delete('single-entry-delete/{id}',[SingleEntryController::class,'destroy'])->name('admin.single.entry.delete');
+
 
     //Supplier
-    Route::get('supplier',[SupplierController::class,'supplier'])->name('admin.supplier');
+    Route::get('supplier',[SupplierController::class,'index'])->name('admin.supplier');
+    Route::post('supplier-store',[SupplierController::class,'store'])->name('admin.supplier.store');
+    Route::get('supplier-edit/{id}',[SupplierController::class,'edit'])->name('admin.supplier.edit');
+    Route::post('supplier-update/{id}',[SupplierController::class,'update'])->name('admin.supplier.update');
+    Route::delete('supplier-delete/{id}',[SupplierController::class,'destroy'])->name('admin.supplier.delete');
+
 
     //Income
     Route::get('income',[IncomeController::class,'index'])->name('admin.income');

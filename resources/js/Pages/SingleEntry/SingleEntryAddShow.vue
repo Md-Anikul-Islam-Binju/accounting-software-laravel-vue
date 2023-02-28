@@ -11,6 +11,7 @@
             </div>
             <div class="card pd-20 pd-sm-40">
                 <h6 class="card-body-title">Single Entry Add & Show</h6>
+                <form @submit.prevent="submit">
                 <div class="form-layout">
 
                     <div class="row">
@@ -61,6 +62,7 @@
                         <button class="btn btn-info mg-r-5">Submit</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
 
@@ -76,19 +78,22 @@
                             <th class="wd-15p">To Account</th>
                             <th class="wd-15p">Code</th>
                             <th class="wd-15p">Amount</th>
-                            <th class="wd-15p">Status</th>
+                            <th class="wd-15p">Date</th>
                             <th class="wd-20p">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>DBBL</td>
-                            <td>City</td>
-                            <td>2541</td>
-                            <td>50000tk</td>
-                            <td>Active</td>
-                            <td>Edit , Delete</td>
+                        <tr v-for="(data, index) in singleEntry">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ data.single_entry_form_account.account_name }}</td>
+                            <td>{{ data.single_entry_to_account.account_name }}</td>
+                            <td>{{ data.single_entry_code }}</td>
+                            <td>{{ data.transaction_amount }}</td>
+                            <td>{{ data.entry_date }}</td>
+                            <td>
+                                <Link class="btn btn-success" :href="route('admin.single.entry.edit',data.id)"  >Edit</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)">Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -107,6 +112,7 @@ export default {
     components: {AdminIndex,Link},
     props:{
         account:Object,
+        singleEntry:Object,
     },
     data(){
         return{
@@ -118,6 +124,48 @@ export default {
                 details:'',
             })
         }
+    },
+    methods:{
+        submit(){
+            if(this.form.isDirty==true)
+            {
+                this.form.post(route('admin.single.entry.store'))
+                this.form.reset();
+                Swal.fire(
+                    'Success!',
+                    'You Single Entry Information Store Successfully!',
+                    'success'
+                )
+            }
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Something went wrong!',
+                    'error'
+                )
+            }
+        },
+
+        destroy: function (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You went to delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete('single-entry-delete/'+id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your Single Entry Information has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        },
     },
 }
 </script>
