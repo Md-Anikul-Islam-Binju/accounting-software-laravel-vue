@@ -227,7 +227,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('income-delete/{id}',[IncomeController::class,'destroy'])->name('admin.income.delete');
 
     //Expense
-    Route::get('expense',[ExpenseController::class,'expense'])->name('admin.expense');
+    Route::get('expense',[ExpenseController::class,'index'])->name('admin.expense');
+    Route::post('expense-store',[ExpenseController::class,'store'])->name('admin.expense.store');
+    Route::get('expense-edit/{id}',[ExpenseController::class,'edit'])->name('admin.expense.edit');
+    Route::post('expense-update/{id}',[ExpenseController::class,'update'])->name('admin.expense.update');
+    Route::delete('expense-delete/{id}',[ExpenseController::class,'destroy'])->name('admin.expense.delete');
 
     //Customer
     Route::get('customer',[CustomerController::class,'customer'])->name('admin.customer');
