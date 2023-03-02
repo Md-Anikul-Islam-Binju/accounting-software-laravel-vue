@@ -17,8 +17,8 @@ class CreateSuppliersTable extends Migration
             $table->id();
             $table->integer('supplier_to_account_id');
             $table->integer('supplier_form_account_id');
-            $table->date('supplier_amount');
-            $table->string('supplier_date');
+            $table->string('supplier_amount');
+            $table->date('supplier_date');
             $table->text('details')->nullable();
             $table->string('supplier_entry_code')->nullable();
             $table->softDeletes();

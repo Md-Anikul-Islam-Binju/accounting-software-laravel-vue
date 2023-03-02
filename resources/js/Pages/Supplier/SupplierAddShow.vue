@@ -78,19 +78,22 @@
                             <th class="wd-15p">Form Account </th>
                             <th class="wd-15p">Amount</th>
                             <th class="wd-15p">Code</th>
-                            <th class="wd-15p">Details</th>
+                            <th class="wd-15p">Date</th>
                             <th class="wd-20p">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>DB22081</td>
-                            <td>DB25465</td>
-                            <td>250000 Taka</td>
-                            <td>2584512</td>
-                            <td>Test.........</td>
-                            <td>Edit , Delete</td>
+                        <tr v-for="(data,index) in suppliers">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ data.supplier_to_account.account_name }}</td>
+                            <td>{{ data.supplier_form_account.account_name }}</td>
+                            <td>{{ data.supplier_amount }}Tk</td>
+                            <td>{{ data.supplier_entry_code }}</td>
+                            <td>{{ data.supplier_date }}</td>
+                            <td>
+                                <Link class="btn btn-success" :href="route('admin.supplier.edit',data.id)" style="text-align: end; color:white; margin-right: 2px;" >Edit</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)"  style="text-align: end; color:white; margin-left: 2px;" >Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -109,6 +112,7 @@ export default {
     components: {AdminIndex,Link},
     props:{
         account:Object,
+        suppliers:Object,
     },
     data(){
         return{

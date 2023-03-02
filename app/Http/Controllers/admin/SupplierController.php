@@ -14,11 +14,13 @@ class SupplierController extends Controller
     public function index()
     {
         $account = Account::latest()->get();
-        return Inertia::render('Supplier/SupplierAddShow',compact('account'));
+        $suppliers = Supplier::with('supplier_form_account','supplier_to_account')->latest()->get();
+        return Inertia::render('Supplier/SupplierAddShow',compact('account','suppliers'));
     }
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'supplier_to_account_id' => 'required|max:50',
             'supplier_form_account_id' => 'required|max:50',
@@ -57,24 +59,22 @@ class SupplierController extends Controller
     public function update(Request $request,$id)
     {
         $validated = $request->validate([
-            'supplier_to_account_id' => $request->supplier_to_account_id,
-            'supplier_form_account_id' => $request->supplier_form_account_id,
-            'supplier_amount' => $request->supplier_amount,
-            'supplier_date' => $request->supplier_date,
-            'details' => $request->details,
+            'supplier_to_account_id' => 'required|max:50',
+            'supplier_form_account_id' => 'required|max:50',
+            'supplier_amount' => 'required|max:50',
+            'supplier_date' => 'required|max:50',
         ]);
         try {
             $supplier = Supplier::find($id);
             if (empty($supplier)) {
                 throw new \Exception('Failed!');
             }
+
             $updateSupplier = $supplier->update([
-                'form_account_id' => $request->form_account_id,
-                'to_account_id' => $request->to_account_id,
-                'entry_date' => $request->entry_date,
-                'transaction_amount' => $request->transaction_amount,
-                'details' => $request->details,
-                'single_entry_code' => mt_rand(1000, 9999),
+                'supplier_to_account_id' => $request->supplier_to_account_id,
+                'supplier_form_account_id' => $request->supplier_form_account_id,
+                'supplier_amount' => $request->supplier_amount,
+                'supplier_date' => $request->supplier_date,
             ]);
             if (!empty($updateSupplier)) {
                 DB::commit();

@@ -17,4 +17,13 @@ class Supplier extends Model
         'details',
         'supplier_entry_code',
     ];
+
+    public function supplier_form_account()
+    {
+        return $this->belongsTo(Account::class,'supplier_form_account_id');
+    }
+    public function supplier_to_account()
+    {
+        return $this->belongsTo(Account::class,'supplier_to_account_id');
+    }
 }
