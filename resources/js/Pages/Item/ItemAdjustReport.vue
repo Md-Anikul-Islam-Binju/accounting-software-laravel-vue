@@ -25,15 +25,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mask</td>
-                            <td>100</td>
-                            <td>1000 Tk</td>
-                            <td>1000 Tk</td>
-                            <td>500 Tk</td>
-                            <td>700 Tk</td>
-                            <td>Edit , Delete</td>
+                        <tr v-for="(data, index) in itemAdjustments">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ data.item.item_name }}</td>
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.rate }} Tk</td>
+                            <td>{{ data.sub_total }} Tk</td>
+                            <td>{{ data.voucher }}</td>
+                            <td>{{ data.total }} Tk</td>
+                            <td>
+                                <Link class="btn btn-success" :href="route('admin.item.adjustment.edit',data.id)" style="text-align: end; color:white;" >Edit</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)"  style="text-align: end; color:white;" >Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -44,9 +47,36 @@
 </template>
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
+import {Link} from "@inertiajs/inertia-vue3";
+import Swal from "sweetalert2";
 export default {
     name: "ItemAdjustReport",
-    components: {AdminIndex}
+    components: {AdminIndex,Link},
+    props:{
+        itemAdjustments:Object,
+    },
+    methods:{
+        destroy: function (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You went to delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete('item-adjustment-delete/'+id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your Item adjustment has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        },
+    },
 }
 </script>
 

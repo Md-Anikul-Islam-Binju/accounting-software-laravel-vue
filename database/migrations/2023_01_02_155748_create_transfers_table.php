@@ -16,7 +16,7 @@ class CreateTransfersTable extends Migration
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_id');
-            $table->string('branch_name');
+            $table->string('branch_id');
             $table->integer('qty')->nullable();
             $table->string('rate');
             $table->string('voucher')->nullable();

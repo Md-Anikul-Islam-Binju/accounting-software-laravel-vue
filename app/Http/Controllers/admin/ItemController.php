@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\admin\Category;
 use App\Models\admin\Group;
 use App\Models\admin\Item;
+use App\Models\admin\ItemAdjust;
 use App\Models\admin\Unit;
 use Exception;
 use Illuminate\Http\Request;
@@ -143,21 +144,89 @@ class ItemController extends Controller
     //Item Adjustment
     public function itemAdjustment()
     {
-        return Inertia::render('Item/ItemAdjustAdd');
+        $items = Item::latest()->get();
+        return Inertia::render('Item/ItemAdjustAdd',compact('items'));
+    }
+
+    public function itemAdjustmentStore(Request $request)
+    {
+        $validated = $request->validate([
+            'item_id' => 'required',
+            'qty' => 'required',
+        ]);
+        try{
+            DB::beginTransaction();
+            $itemAdjustment = ItemAdjust::create([
+                'item_id' => $request->item_id,
+                'qty' => $request->qty,
+                'rate' => $request->rate,
+                'voucher' => mt_rand(1000, 9999),
+                'total' => $request->total,
+                'sub_total' => $request->sub_total,
+                'date' => $request->date,
+            ]);
+            if(!empty($itemAdjustment)){
+                DB::commit();
+                return redirect()->route('admin.item.adjustment.report');
+            }
+            throw new \Exception('Failed!');
+        }catch(Exception $ex){
+            DB::rollBack();
+            return redirect()->route('admin.item.adjustment.report');
+        }
     }
 
     public function itemAdjustmentReport()
     {
-        return Inertia::render('Item/ItemAdjustReport');
+        $itemAdjustments = ItemAdjust::with('item')->latest()->get();
+        return Inertia::render('Item/ItemAdjustReport',compact('itemAdjustments'));
     }
 
-    public function itemAdjustmentPendingReport()
+    public function itemAdjustmentEdit($id)
     {
-        return Inertia::render('Item/ItemAdjustPendingReport');
+        $items = Item::latest()->get();
+        $itemAdjustments = ItemAdjust::where('id',$id)->first();
+        return Inertia::render('Item/ItemAdjustUpdate',compact('itemAdjustments','items'));
     }
 
-    public function itemAdjustmentReceivedReport()
+    public function itemAdjustmentUpdate(Request $request,$id)
     {
-        return Inertia::render('Item/ItemAdjustReceivedReport');
+        $validated = $request->validate([
+            'item_id' => 'required',
+            'qty' => 'required',
+        ]);
+        try {
+            $itemAdjustments = ItemAdjust::find($id);
+            if (empty($itemAdjustments)) {
+                throw new \Exception('Failed!');
+            }
+            $updateItemAdjustments = $itemAdjustments->update([
+                'item_id' => $request->item_id,
+                'qty' => $request->qty,
+                'rate' => $request->rate,
+                'total' => $request->total,
+                'sub_total' => $request->sub_total,
+                'date' => $request->date,
+            ]);
+            if (!empty($updateItemAdjustments)) {
+                DB::commit();
+                return redirect()->route('admin.item.adjustment.report');
+            } else {
+                throw new \Exception('Failed!');
+            }
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->route('admin.item.adjustment.report');
+        }
     }
+
+    public function itemAdjustmentDelete($id)
+    {
+        $itemAdjustments = ItemAdjust::findOrFail($id);
+        $itemAdjustments->delete();
+        return redirect()->route('admin.item.adjustment.report');
+    }
+
+
+
 }

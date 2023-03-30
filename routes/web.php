@@ -93,9 +93,14 @@ Route::middleware('auth')->group(function () {
 
     //Item Adjustment
     Route::get('item-adjustment',[ItemController::class,'itemAdjustment'])->name('admin.item.adjustment');
+    Route::post('item-adjustment-store',[ItemController::class,'itemAdjustmentStore'])->name('admin.item.adjustment.store');
     Route::get('item-adjustment-report',[ItemController::class,'itemAdjustmentReport'])->name('admin.item.adjustment.report');
-    Route::get('item-adjustment-pending-report',[ItemController::class,'itemAdjustmentPendingReport'])->name('admin.item.adjustment.pending.report');
-    Route::get('item-adjustment-received-report',[ItemController::class,'itemAdjustmentReceivedReport'])->name('admin.item.adjustment.received.report');
+
+    Route::get('item-adjustment-edit/{id}',[ItemController::class,'itemAdjustmentEdit'])->name('admin.item.adjustment.edit');
+    Route::post('item-adjustment-update/{id}',[ItemController::class,'itemAdjustmentUpdate'])->name('admin.item.adjustment.update');
+    Route::delete('item-adjustment-delete/{id}',[ItemController::class,'itemAdjustmentDelete'])->name('admin.item.adjustment.delete');
+
+
 
     //Category
     Route::get('category',[CategoryController::class,'index'])->name('admin.category');
@@ -176,11 +181,29 @@ Route::middleware('auth')->group(function () {
     Route::get('purchase-return',[PurchaseController::class,'purchaseReturn'])->name('admin.purchase.return');
     Route::get('purchase-return-list',[PurchaseController::class,'purchaseReturnList'])->name('admin.purchase.return.list');
     //Manufacture
-    Route::get('manufacture',[ManufactureController::class,'manufacture'])->name('admin.manufacture');
+    Route::get('manufacture',[ManufactureController::class,'index'])->name('admin.manufacture');
+    Route::post('manufacture-store',[ManufactureController::class,'store'])->name('admin.manufacture.store');
+    Route::get('manufacture-edit/{id}',[ManufactureController::class,'edit'])->name('admin.manufacture.edit');
+    Route::post('manufacture-update/{id}',[ManufactureController::class,'update'])->name('admin.manufacture.update');
+    Route::delete('manufacture-delete/{id}',[ManufactureController::class,'destroy'])->name('admin.manufacture.delete');
+
+
+
+
+
+
     Route::get('manufacture-list',[ManufactureController::class,'manufactureList'])->name('admin.manufacture.list');
     Route::get('manufacture-voucher',[ManufactureController::class,'manufactureVoucher'])->name('admin.manufacture.voucher');
+
+
     //Transfer
-    Route::get('transfer',[TransferController::class,'transfer'])->name('admin.transfer');
+    Route::get('transfer',[TransferController::class,'index'])->name('admin.transfer');
+    Route::post('transfer-store',[TransferController::class,'store'])->name('admin.transfer.store');
+    Route::get('transfer-edit/{id}',[TransferController::class,'edit'])->name('admin.transfer.edit');
+    Route::post('transfer-update/{id}',[TransferController::class,'update'])->name('admin.transfer.update');
+    Route::delete('transfer-delete/{id}',[TransferController::class,'destroy'])->name('admin.transfer.delete');
+
+
     Route::get('transfer-list',[TransferController::class,'transferList'])->name('admin.transfer.list');
 
     //Location

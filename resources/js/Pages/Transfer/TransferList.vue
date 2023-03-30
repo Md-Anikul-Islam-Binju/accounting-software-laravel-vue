@@ -16,30 +16,33 @@
                         <tr>
                             <th class="wd-15p">S/N</th>
                             <th class="wd-15p">Item</th>
+                            <th class="wd-15p">Branch</th>
                             <th class="wd-15p">Qty</th>
                             <th class="wd-15p">Rate</th>
-                            <th class="wd-15p">Sub Total</th>
                             <th class="wd-15p">Voucher</th>
+                            <th class="wd-15p">Sub Total</th>
                             <th class="wd-15p">Total</th>
                             <th class="wd-15p">Transfer Cost</th>
-                            <th class="wd-15p">Branch</th>
                             <th class="wd-15p">Grand Total</th>
                             <th class="wd-20p">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mask</td>
-                            <td>100</td>
-                            <td>1000 Tk</td>
-                            <td>1000 Tk</td>
-                            <td>500 Tk</td>
-                            <td>700 Tk</td>
-                            <td>1000 Tk</td>
-                            <td>5000 Tk</td>
-                            <td>Mirpur</td>
-                            <td>Edit , Delete</td>
+                        <tr v-for="(data, index) in transfer">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ data.item.item_name }}</td>
+                            <td>{{ data.branch.name }}</td>
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.rate }} Tk</td>
+                            <td>{{ data.voucher }}</td>
+                            <td>{{ data.sub_total }}</td>
+                            <td>{{ data.total }} Tk</td>
+                            <td>{{ data.transfer_cost }} Tk</td>
+                            <td>{{ data.grand_total }} Tk</td>
+                            <td>
+                                <Link class="btn btn-success" :href="route('admin.transfer.edit',data.id)" style="text-align: end; color:white;" >Edit</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)"  style="text-align: end; color:white;" >Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -51,9 +54,37 @@
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
+import {Link} from "@inertiajs/inertia-vue3";
+import Swal from "sweetalert2";
 export default {
     name: "TransferList",
-    components: {AdminIndex}
+    components: {AdminIndex,Link},
+    props:{
+        transfer:Object,
+    },
+
+    methods:{
+        destroy: function (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You went to delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete('transfer-delete/'+id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your Transfer Item has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        },
+    },
 }
 </script>
 

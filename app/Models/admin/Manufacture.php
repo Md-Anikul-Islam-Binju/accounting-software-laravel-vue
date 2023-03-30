@@ -10,4 +10,8 @@ class Manufacture extends Model
 {
     use SoftDeletes, HasFactory;
     protected $guarded=[];
+    public function item()
+    {
+        return $this->belongsTo(Item::class,'item_id');
+    }
 }

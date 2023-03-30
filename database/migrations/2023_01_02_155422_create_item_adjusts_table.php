@@ -21,6 +21,7 @@ class CreateItemAdjustsTable extends Migration
             $table->string('sub_total')->nullable();
             $table->string('total')->nullable();
             $table->string('voucher')->nullable();
+            $table->date('date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
