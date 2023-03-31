@@ -181,12 +181,7 @@
                     <li class="nav-item">
                         <Link :href="route('admin.item.adjustment.report')" class="nav-link">Adjustment List</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link :href="route('admin.item.adjustment.pending.report')" class="nav-link">Pending Adjustment</Link>
-                    </li>
-                    <li class="nav-item">
-                        <Link :href="route('admin.item.adjustment.received.report')" class="nav-link">Received Adjustment</Link>
-                    </li>
+
                 </ul>
 
                 <!--Account Modules-->
