@@ -234,9 +234,9 @@
                     </div>
                 </a>
                 <ul v-if="toggleHrModule" style="list-style: none;">
-                    <li class="nav-item">
-                        <Link :href="route('admin.attendance')" class="nav-link">Attendance</Link>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <Link :href="route('admin.attendance')" class="nav-link">Attendance</Link>-->
+<!--                    </li>-->
                     <li class="nav-item">
                         <Link :href="route('admin.department')" class="nav-link">Department</Link>
                     </li>

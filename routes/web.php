@@ -150,11 +150,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('company-profile-delete/{id}',[CompanyProfileController::class,'destroy'])->name('admin.company.profile.delete');
 
     //Sale
-    Route::get('sale',[SaleController::class,'saleAdd'])->name('admin.sale.add');
+    Route::get('sale',[SaleController::class,'index'])->name('admin.sale.add');
     Route::get('sale-list',[SaleController::class,'saleList'])->name('admin.sale.list');
+    Route::post('sale-store',[SaleController::class,'store'])->name('admin.sale.store');
+    Route::get('sale-edit/{id}',[SaleController::class,'edit'])->name('admin.sale.edit');
+    Route::post('sale-update/{id}',[SaleController::class,'update'])->name('admin.sale.update');
+    Route::delete('sale-delete/{id}',[SaleController::class,'destroy'])->name('admin.sale.delete');
+
+
     //Sale Return
     Route::get('sale-return',[SaleController::class,'saleReturnAdd'])->name('admin.sale.return.add');
+    Route::post('sale-return-store',[SaleController::class,'storeSaleReturn'])->name('admin.sale.return.store');
+    Route::get('sale-return-edit/{id}',[SaleController::class,'editSaleReturn'])->name('admin.sale.return.edit');
+    Route::post('sale-return-update/{id}',[SaleController::class,'updateSaleReturn'])->name('admin.sale.return.update');
+    Route::delete('sale-return-delete/{id}',[SaleController::class,'destroySaleReturn'])->name('admin.sale.return.delete');
     Route::get('sale-return-list',[SaleController::class,'saleReturnList'])->name('admin.sale.return.list');
+
+
     //Quotation
     Route::get('quotation',[QuotationController::class,'index'])->name('admin.quotation.add');
     Route::post('quotation-store',[QuotationController::class,'store'])->name('admin.quotation.store');

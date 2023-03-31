@@ -1,18 +1,18 @@
 <template>
-<AdminIndex />
+<AdminIndex/>
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
-            <a class="breadcrumb-item" href="#">Sale</a>
+            <a class="breadcrumb-item" href="#">Sale Return</a>
         </nav>
         <div class="sl-pagebody">
             <div class="sl-page-title">
-                <h5>Sale</h5>
+                <h5>Sale Return</h5>
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Sale Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Sale Return Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -125,47 +125,14 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Transport Cost: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="transport_cost" v-model="form.transport_cost" placeholder="Enter Transport Cost">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Grand Total: <span class="tx-danger">*</span></label>
                                     <input class="form-control" type="text" name="grand_total" v-model="form.grand_total" placeholder="Enter Grand Total">
                                 </div>
                             </div>
-
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Previous Due Amount: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="previous_due_amount" v-model="form.previous_due_amount" placeholder="Enter Previous Due Amount">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Due Amount: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="due_amount" v-model="form.due_amount" placeholder="Enter Due Amount">
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Paid Amount: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="paid_amount" v-model="form.paid_amount" placeholder="Enter Paid Amount">
-                                </div>
-                            </div>
-                        </div>
-
 
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
@@ -175,62 +142,41 @@
 </template>
 
 <script>
-import AdminIndex from "../AdminIndex";
-import Swal from "sweetalert2";
+import AdminIndex from "@/Pages/AdminIndex";
 export default {
-    name: "SaleAdd",
+    name: "SaleReturnUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        saleReturn:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                sub_total:'',
-                transport_cost:'',
-                grand_total:'',
-                paid_amount:'',
-                due_amount:'',
-                previous_due_amount:'',
-
+                item_id:this.saleReturn.item_id,
+                customer_type:this.saleReturn.customer_type,
+                customer_name:this.saleReturn.customer_name,
+                phone:this.saleReturn.phone,
+                address:this.saleReturn.address,
+                details:this.saleReturn.details,
+                qty:this.saleReturn.qty,
+                rate:this.saleReturn.rate,
+                date:this.saleReturn.date,
+                total:this.saleReturn.total,
+                discount:this.saleReturn.discount,
+                vat:this.saleReturn.vat,
+                sub_total:this.saleReturn.sub_total,
+                grand_total:this.saleReturn.grand_total,
+                institution:this.saleReturn.institution,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.sale.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Sale Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.sale.return.update',this.saleReturn.id))
+            this.form.reset();
+        }
     },
 }
 </script>

@@ -12,149 +12,130 @@
 
             <div class="card pd-20 pd-sm-40">
                 <h6 class="card-body-title">Sale Return Add</h6>
-                <div class="form-layout">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Item: <span class="tx-danger">*</span></label>
-                                <select class="form-control" data-placeholder="Choose Item">
-                                    <option label="Choose Item"></option>
-                                    <option value="">ACI</option>
-                                    <option value="">Maximino</option>
-                                </select>
+                <form @submit.prevent="submit">
+                    <div class="form-layout">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Item: <span class="tx-danger">*</span></label>
+                                    <select class="form-control" name="item_id" v-model="form.item_id" data-placeholder="Choose Item">
+                                        <option label="Choose Item"></option>
+                                        <option v-for="data in items" :value="data.id" >{{ data.item_name }}</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Customer Type: <span class="tx-danger">*</span></label>
-                                <select class="form-control" data-placeholder="Choose Customer Type">
-                                    <option label="Choose Customer Type"></option>
-                                    <option value="">Single</option>
-                                    <option value="">Multiple</option>
-                                </select>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Customer Type: <span class="tx-danger">*</span></label>
+                                    <select class="form-control" name="customer_type" v-model="form.customer_type" data-placeholder="Choose Customer Type">
+                                        <option label="Choose Customer Type" ></option>
+                                        <option value="1">Generale Customer</option>
+                                        <option value="2">New Customer</option>
+                                    </select>
+                                </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="customer_name"  v-model="form.customer_name"  placeholder="Enter Customer Name">
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="customer_name"  placeholder="Enter Customer Name">
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Phone: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="number" name="phone" v-model="form.phone" placeholder="Enter Phone">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Address: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="address" v-model="form.address" placeholder="Enter Address">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Details: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="details" v-model="form.details" placeholder="Enter Details">
+                                </div>
                             </div>
                         </div>
 
-                    </div>
+                        <div class="row">
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Phone: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="number" name="phone"  placeholder="Enter Phone">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Institution Name: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="institution" v-model="form.institution" placeholder="Enter Institution Name">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Address: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="address"  placeholder="Enter Address">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Details: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="details"  placeholder="Enter Details">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Qty: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="qty"  placeholder="Enter Qty">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Qty: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="qty" v-model="form.qty"  placeholder="Enter Qty">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Rate: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="rate"  placeholder="Enter Rate">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Rate: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="rate" v-model="form.rate" placeholder="Enter Rate">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Voucher: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="voucher"  placeholder="Enter Voucher">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Total: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="total"  placeholder="Enter Total">
-                            </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Discount: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="discount"  placeholder="Enter Discount">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Vat: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="vat"  placeholder="Enter Vat">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Sub Total: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="sub_total"  placeholder="Enter Sub Total">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Total: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="total" v-model="form.total" placeholder="Enter Total">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Discount: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="discount" v-model="form.discount" placeholder="Enter Discount">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Vat: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="vat" v-model="form.vat" placeholder="Enter Vat">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Paid: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="paid"  placeholder="Enter Paid">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Due: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="due"  placeholder="Enter Due">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Company Name: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="text" name="company_name"  placeholder="Enter Company Name">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Date: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="date" name="date" v-model="form.date" placeholder="Enter date">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Sub total: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="sub_total" v-model="form.sub_total" placeholder="Enter Sub total">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Grand Total: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="grand_total" v-model="form.grand_total" placeholder="Enter Grand Total">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Date: <span class="tx-danger">*</span></label>
-                                <input class="form-control" type="date" name="date"  placeholder="Enter Date">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Status: <span class="tx-danger">*</span></label>
-                                <select class="form-control" data-placeholder="Choose Status">
-                                    <option label="Choose Status"></option>
-                                    <option value="">Active</option>
-                                    <option value="">Inactive</option>
-                                </select>
-                            </div>
+
+                        <div class="form-layout-footer">
+                            <button class="btn btn-info mg-r-5">Submit</button>
                         </div>
                     </div>
-                    <div class="form-layout-footer">
-                        <button class="btn btn-info mg-r-5">Submit</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -162,9 +143,56 @@
 
 <script>
 import AdminIndex from "../AdminIndex";
+import Swal from "sweetalert2";
 export default {
     name: "SaleReturnAdd",
-    components: {AdminIndex}
+    components: {AdminIndex},
+    props:{
+        items:Object,
+    },
+    data(){
+        return{
+            form:this.$inertia.form({
+                item_id:'',
+                customer_type:'',
+                customer_name:'',
+                phone:'',
+                address:'',
+                details:'',
+                qty:'',
+                rate:'',
+                date:'',
+                institution:'',
+                total:'',
+                discount:'',
+                vat:'',
+                sub_total:'',
+                grand_total:'',
+            })
+        }
+    },
+
+    methods:{
+        submit(){
+            if(this.form.isDirty==true)
+            {
+                this.form.post(route('admin.sale.return.store'))
+                this.form.reset();
+                Swal.fire(
+                    'Success!',
+                    'You Sale Return Data Submit Successfully!',
+                    'success'
+                )
+            }
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Something went wrong!',
+                    'error'
+                )
+            }
+        },
+    },
 }
 </script>
 

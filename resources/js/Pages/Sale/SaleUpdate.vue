@@ -1,5 +1,5 @@
 <template>
-<AdminIndex />
+<AdminIndex/>
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
@@ -11,8 +11,8 @@
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Sale Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Sale Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -162,10 +162,8 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
@@ -175,62 +173,45 @@
 </template>
 
 <script>
-import AdminIndex from "../AdminIndex";
-import Swal from "sweetalert2";
+import AdminIndex from "@/Pages/AdminIndex";
 export default {
-    name: "SaleAdd",
+    name: "SaleUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        sale:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                sub_total:'',
-                transport_cost:'',
-                grand_total:'',
-                paid_amount:'',
-                due_amount:'',
-                previous_due_amount:'',
-
+                item_id:this.sale.item_id,
+                customer_type:this.sale.customer_type,
+                customer_name:this.sale.customer_name,
+                phone:this.sale.phone,
+                address:this.sale.address,
+                details:this.sale.details,
+                qty:this.sale.qty,
+                rate:this.sale.rate,
+                date:this.sale.date,
+                total:this.sale.total,
+                discount:this.sale.discount,
+                vat:this.sale.vat,
+                sub_total:this.sale.sub_total,
+                transport_cost:this.sale.transport_cost,
+                grand_total:this.sale.grand_total,
+                institution:this.sale.institution,
+                paid_amount:this.sale.paid_amount,
+                due_amount:this.sale.due_amount,
+                previous_due_amount:this.sale.previous_due_amount,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.sale.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Sale Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.sale.update',this.sale.id))
+            this.form.reset();
+        }
     },
 }
 </script>
