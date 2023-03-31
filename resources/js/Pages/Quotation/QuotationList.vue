@@ -16,36 +16,30 @@
                         <tr>
                             <th class="wd-15p">S/N</th>
                             <th class="wd-15p">Item</th>
-                            <th class="wd-15p">Customer Type</th>
                             <th class="wd-15p">Customer Name</th>
                             <th class="wd-15p">Phone</th>
-                            <th class="wd-15p">Company Name</th>
                             <th class="wd-15p">Qty</th>
                             <th class="wd-15p">Rate</th>
                             <th class="wd-15p">Total</th>
-                            <th class="wd-15p">Quotation Number</th>
-                            <th class="wd-15p">Sub Total</th>
-                            <th class="wd-15p">Paid</th>
-                            <th class="wd-15p">Due</th>
+                            <th class="wd-15p">Grand Total</th>
                             <th class="wd-20p">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mask</td>
-                            <td>Multiple</td>
-                            <td>Anik</td>
-                            <td>01905256528</td>
-                            <td>ACI</td>
-                            <td>100</td>
-                            <td>1000 Tk</td>
-                            <td>1000 Tk</td>
-                            <td>2545</td>
-                            <td>1300 Tk</td>
-                            <td>500 Tk</td>
-                            <td>700 Tk</td>
-                            <td>Edit , Delete</td>
+                        <tr v-for="(data, index) in quotations">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ data.item.item_name }}</td>
+                            <td>{{ data.customer_name }}</td>
+                            <td>{{ data.phone }}</td>
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.rate }}</td>
+                            <td>{{ data.total }}</td>
+                            <td>{{ data.grand_total }}</td>
+
+                            <td>
+                                <Link class="btn btn-success" :href="route('admin.quotation.edit',data.id)" style="text-align: end; color:white;" >Edit</Link>
+                                <Link class="btn btn-danger"   @click="destroy(data.id)"  style="text-align: end; color:white;" >Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -57,9 +51,36 @@
 
 <script>
 import AdminIndex from "../AdminIndex";
+import {Link} from "@inertiajs/inertia-vue3";
+import Swal from "sweetalert2";
 export default {
     name: "QuotationList",
-    components: {AdminIndex}
+    components: {AdminIndex,Link},
+    props:{
+        quotations:Object,
+    },
+    methods:{
+        destroy: function (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You went to delete this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.delete('quotation-delete/'+id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your quotation has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        },
+    },
 }
 </script>
 

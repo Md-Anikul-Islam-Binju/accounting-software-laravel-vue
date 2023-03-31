@@ -156,16 +156,33 @@ Route::middleware('auth')->group(function () {
     Route::get('sale-return',[SaleController::class,'saleReturnAdd'])->name('admin.sale.return.add');
     Route::get('sale-return-list',[SaleController::class,'saleReturnList'])->name('admin.sale.return.list');
     //Quotation
-    Route::get('quotation',[QuotationController::class,'quotationAdd'])->name('admin.quotation.add');
+    Route::get('quotation',[QuotationController::class,'index'])->name('admin.quotation.add');
+    Route::post('quotation-store',[QuotationController::class,'store'])->name('admin.quotation.store');
+    Route::get('quotation-edit/{id}',[QuotationController::class,'edit'])->name('admin.quotation.edit');
+    Route::post('quotation-update/{id}',[QuotationController::class,'update'])->name('admin.quotation.update');
+    Route::delete('quotation-delete/{id}',[QuotationController::class,'destroy'])->name('admin.quotation.delete');
     Route::get('quotation-list',[QuotationController::class,'quotationList'])->name('admin.quotation.list');
+
     //Sale Order
-    Route::get('sale-order',[OrderController::class,'saleOrder'])->name('admin.sale.order');
+    Route::get('sale-order',[OrderController::class,'index'])->name('admin.sale.order');
+    Route::post('sale-order-store',[OrderController::class,'store'])->name('admin.sale.order.store');
+    Route::get('sale-order-edit/{id}',[OrderController::class,'edit'])->name('admin.sale.order.edit');
+    Route::post('sale-order-update/{id}',[OrderController::class,'update'])->name('admin.sale.order.update');
+    Route::delete('sale-order-delete/{id}',[OrderController::class,'destroy'])->name('admin.sale.order.delete');
     Route::get('sale-order-list',[OrderController::class,'saleOrderList'])->name('admin.sale.order.list');
     Route::get('sale-order-voucher',[OrderController::class,'saleOrderVoucher'])->name('admin.sale.order.voucher');
+
+
     //Purses Order
     Route::get('purses-order',[OrderController::class,'pursesOrder'])->name('admin.purses.order');
+    Route::post('purses-order-store',[OrderController::class,'storePursesOrder'])->name('admin.purses.order.store');
+    Route::get('purses-order-edit/{id}',[OrderController::class,'editPursesOrder'])->name('admin.purses.order.edit');
+    Route::post('purses-order-update/{id}',[OrderController::class,'updatePursesOrder'])->name('admin.purses.order.update');
+    Route::delete('purses-order-delete/{id}',[OrderController::class,'destroyPursesOrder'])->name('admin.purses.order.delete');
     Route::get('purses-order-list',[OrderController::class,'pursesOrderList'])->name('admin.purses.order.list');
     Route::get('purses-order-voucher',[OrderController::class,'pursesOrderVoucher'])->name('admin.purses.order.voucher');
+
+
     //Service
     Route::get('service',[ServiceController::class,'service'])->name('admin.service');
     Route::get('service-list',[ServiceController::class,'serviceList'])->name('admin.service.list');

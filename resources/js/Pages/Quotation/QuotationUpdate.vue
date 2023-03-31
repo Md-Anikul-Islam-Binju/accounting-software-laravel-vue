@@ -1,18 +1,18 @@
 <template>
-    <AdminIndex/>
+<AdminIndex/>
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
-            <a class="breadcrumb-item" href="#">Sale Order</a>
+            <a class="breadcrumb-item" href="#">Quotation</a>
         </nav>
         <div class="sl-pagebody">
             <div class="sl-page-title">
-                <h5>Sale Order</h5>
+                <h5>Quotation Update</h5>
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Sale Order Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Quotation Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -65,14 +65,12 @@
                         </div>
 
                         <div class="row">
-
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Institution Name: <span class="tx-danger">*</span></label>
                                     <input class="form-control" type="text" name="institution" v-model="form.institution" placeholder="Enter Institution Name">
                                 </div>
                             </div>
-
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Qty: <span class="tx-danger">*</span></label>
@@ -112,8 +110,8 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Order Number: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="order_number" v-model="form.order_number" placeholder="Enter Order Number">
+                                    <label class="form-control-label">Quotation Number: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="quotation_number" v-model="form.quotation_number" placeholder="Enter Quotation Number">
                                 </div>
                             </div>
 
@@ -146,70 +144,53 @@
                             </div>
                         </div>
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
-import Swal from "sweetalert2";
 export default {
-    name: "SaleOrderAdd",
+    name: "QuotationUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        quotation:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                order_number:'',
-                sub_total:'',
-                transport_cost:'',
-                grand_total:'',
+                item_id:this.quotation.item_id,
+                customer_type:this.quotation.customer_type,
+                customer_name:this.quotation.customer_name,
+                phone:this.quotation.phone,
+                address:this.quotation.address,
+                details:this.quotation.details,
+                qty:this.quotation.qty,
+                rate:this.quotation.rate,
+                date:this.quotation.date,
+                total:this.quotation.total,
+                discount:this.quotation.discount,
+                vat:this.quotation.vat,
+                quotation_number:this.quotation.quotation_number,
+                sub_total:this.quotation.sub_total,
+                transport_cost:this.quotation.transport_cost,
+                grand_total:this.quotation.grand_total,
+                institution:this.quotation.institution,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.sale.order.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Sale Order Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.quotation.update',this.quotation.id))
+            this.form.reset();
+        }
     },
 }
 </script>

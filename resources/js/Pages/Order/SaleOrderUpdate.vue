@@ -1,5 +1,5 @@
 <template>
-    <AdminIndex/>
+<AdminIndex/>
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
@@ -11,8 +11,8 @@
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Sale Order Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Sale Order Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -146,70 +146,53 @@
                             </div>
                         </div>
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
-import Swal from "sweetalert2";
 export default {
-    name: "SaleOrderAdd",
+    name: "SaleOrderUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        saleOrder:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                order_number:'',
-                sub_total:'',
-                transport_cost:'',
-                grand_total:'',
+                item_id:this.saleOrder.item_id,
+                customer_type:this.saleOrder.customer_type,
+                customer_name:this.saleOrder.customer_name,
+                phone:this.saleOrder.phone,
+                address:this.saleOrder.address,
+                details:this.saleOrder.details,
+                qty:this.saleOrder.qty,
+                rate:this.saleOrder.rate,
+                date:this.saleOrder.date,
+                total:this.saleOrder.total,
+                discount:this.saleOrder.discount,
+                vat:this.saleOrder.vat,
+                order_number:this.saleOrder.order_number,
+                sub_total:this.saleOrder.sub_total,
+                transport_cost:this.saleOrder.transport_cost,
+                grand_total:this.saleOrder.grand_total,
+                institution:this.saleOrder.institution,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.sale.order.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Sale Order Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.sale.order.update',this.saleOrder.id))
+            this.form.reset();
+        }
     },
 }
 </script>
