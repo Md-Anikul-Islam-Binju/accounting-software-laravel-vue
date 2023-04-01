@@ -283,7 +283,15 @@ Route::middleware('auth')->group(function () {
 
 
     //Double Entry
-    Route::get('double-entry',[DoubleEntryController::class,'doubleEntry'])->name('admin.double.entry');
+    Route::get('double-entry',[DoubleEntryController::class,'index'])->name('admin.double.entry');
+    Route::post('double-entry-store',[DoubleEntryController::class,'store'])->name('admin.double.entry.store');
+    Route::get('double-entry-edit/{id}',[DoubleEntryController::class,'edit'])->name('admin.double.entry.edit');
+    Route::post('double-entry-update/{id}',[DoubleEntryController::class,'update'])->name('admin.double.entry.update');
+    Route::delete('double-entry-delete/{id}',[DoubleEntryController::class,'destroy'])->name('admin.double.entry.delete');
+
+
+
+
     //Advance Transaction
     Route::get('advance-transaction',[AdvanceTransactionController::class,'advanceTransaction'])->name('admin.advance.transaction');
 
