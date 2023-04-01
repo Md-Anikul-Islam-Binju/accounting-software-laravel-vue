@@ -219,8 +219,16 @@ Route::middleware('auth')->group(function () {
 
 
     //Purchase
-    Route::get('purchase',[PurchaseController::class,'purchase'])->name('admin.purchase');
+    Route::get('purchase',[PurchaseController::class,'index'])->name('admin.purchase');
     Route::get('purchase-list',[PurchaseController::class,'purchaseList'])->name('admin.purchase.list');
+    Route::post('purchase-store',[PurchaseController::class,'store'])->name('admin.purchase.store');
+    Route::get('purchase-edit/{id}',[PurchaseController::class,'edit'])->name('admin.purchase.edit');
+    Route::post('purchase-update/{id}',[PurchaseController::class,'update'])->name('admin.purchase.update');
+    Route::delete('purchase-delete/{id}',[PurchaseController::class,'destroy'])->name('admin.purchase.delete');
+
+
+
+
     //Service Expense
     Route::get('purchase-return',[PurchaseController::class,'purchaseReturn'])->name('admin.purchase.return');
     Route::get('purchase-return-list',[PurchaseController::class,'purchaseReturnList'])->name('admin.purchase.return.list');

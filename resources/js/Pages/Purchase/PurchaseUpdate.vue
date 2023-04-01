@@ -3,16 +3,15 @@
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
-            <a class="breadcrumb-item" href="#">Service</a>
+            <a class="breadcrumb-item" href="#">Purchase</a>
         </nav>
         <div class="sl-pagebody">
             <div class="sl-page-title">
-                <h5>Service</h5>
+                <h5>Purchase</h5>
             </div>
-
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Service Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Purchase Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -26,18 +25,18 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Customer Type: <span class="tx-danger">*</span></label>
-                                    <select class="form-control" name="customer_type" v-model="form.customer_type" data-placeholder="Choose Customer Type">
-                                        <option label="Choose Customer Type" ></option>
-                                        <option value="1">Generale Customer</option>
-                                        <option value="2">New Customer</option>
+                                    <label class="form-control-label">Supplier Type: <span class="tx-danger">*</span></label>
+                                    <select class="form-control" name="supplier_type" v-model="form.supplier_type" data-placeholder="Choose Supplier Type">
+                                        <option label="Choose Supplier Type" ></option>
+                                        <option value="1">Generale Supplier</option>
+                                        <option value="2">New Supplier</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="customer_name"  v-model="form.customer_name"  placeholder="Enter Customer Name">
+                                    <label class="form-control-label">Supplier Name: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="customer_name"  v-model="form.supplier_name"  placeholder="Enter Supplier Name">
                                 </div>
                             </div>
 
@@ -133,6 +132,12 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Transport Cost: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="transport_cost" v-model="form.transport_cost" placeholder="Enter Transport Cost">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Due Amount: <span class="tx-danger">*</span></label>
                                     <input class="form-control" type="text" name="due_amount" v-model="form.due_amount" placeholder="Enter Due Amount">
                                 </div>
@@ -146,7 +151,7 @@
                             </div>
                         </div>
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
@@ -157,57 +162,43 @@
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
-import Swal from "sweetalert2";
 export default {
-    name: "ServiceAdd",
+    name: "PurchaseUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
+        purchase:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                sub_total:'',
-                grand_total:'',
-                paid_amount:'',
-                due_amount:'',
+                item_id:this.purchase.item_id,
+                supplier_type:this.purchase.supplier_type,
+                supplier_name:this.purchase.supplier_name,
+                phone:this.purchase.phone,
+                address:this.purchase.address,
+                details:this.purchase.details,
+                qty:this.purchase.qty,
+                rate:this.purchase.rate,
+                date:this.purchase.date,
+                total:this.purchase.total,
+                discount:this.purchase.discount,
+                vat:this.purchase.vat,
+                sub_total:this.purchase.sub_total,
+                grand_total:this.purchase.grand_total,
+                institution:this.purchase.institution,
+                paid_amount:this.purchase.paid_amount,
+                due_amount:this.purchase.due_amount,
+                transport_cost:this.purchase.transport_cost,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.service.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Service Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.purchase.update',this.purchase.id))
+            this.form.reset();
+        }
     },
 }
 </script>
