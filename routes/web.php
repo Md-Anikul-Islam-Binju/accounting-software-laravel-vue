@@ -232,6 +232,15 @@ Route::middleware('auth')->group(function () {
     //Service Expense
     Route::get('purchase-return',[PurchaseController::class,'purchaseReturn'])->name('admin.purchase.return');
     Route::get('purchase-return-list',[PurchaseController::class,'purchaseReturnList'])->name('admin.purchase.return.list');
+
+    Route::post('purchase-return-store',[PurchaseController::class,'storePurchaseReturn'])->name('admin.purchase.return.store');
+    Route::get('purchase-return-edit/{id}',[PurchaseController::class,'editPurchaseReturn'])->name('admin.purchase.return.edit');
+    Route::post('purchase-return-update/{id}',[PurchaseController::class,'updatePurchaseReturn'])->name('admin.purchase.return.update');
+    Route::delete('purchase-return-delete/{id}',[PurchaseController::class,'destroyPurchaseReturn'])->name('admin.purchase.return.delete');
+
+
+
+
     //Manufacture
     Route::get('manufacture',[ManufactureController::class,'index'])->name('admin.manufacture');
     Route::post('manufacture-store',[ManufactureController::class,'store'])->name('admin.manufacture.store');
