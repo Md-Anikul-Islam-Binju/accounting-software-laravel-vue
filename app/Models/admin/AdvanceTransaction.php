@@ -10,4 +10,9 @@ class AdvanceTransaction extends Model
 {
     use SoftDeletes, HasFactory;
     protected $guarded = [];
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class,'account_id');
+    }
 }

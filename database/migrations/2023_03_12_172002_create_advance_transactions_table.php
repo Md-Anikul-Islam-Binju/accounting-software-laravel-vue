@@ -18,7 +18,6 @@ class CreateAdvanceTransactionsTable extends Migration
             $table->integer('transaction_type');
             $table->integer('account_id');
             $table->integer('transaction_account_type');
-            $table->integer('bank_id');
             $table->string('amount')->nullable();
             $table->text('details')->nullable();
             $table->date('date');

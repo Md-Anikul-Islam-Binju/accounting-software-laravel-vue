@@ -293,7 +293,12 @@ Route::middleware('auth')->group(function () {
 
 
     //Advance Transaction
-    Route::get('advance-transaction',[AdvanceTransactionController::class,'advanceTransaction'])->name('admin.advance.transaction');
+    Route::get('advance-transaction',[AdvanceTransactionController::class,'index'])->name('admin.advance.transaction');
+    Route::post('advance-transaction-store',[AdvanceTransactionController::class,'store'])->name('admin.advance.transaction.store');
+    Route::delete('advance-transaction-delete/{id}',[AdvanceTransactionController::class,'destroy'])->name('admin.advance.transaction.delete');
+
+
+
 
     //Single Entry
     Route::get('single-entry',[SingleEntryController::class,'index'])->name('admin.single.entry');
