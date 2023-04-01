@@ -347,8 +347,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('designation-delete/{id}',[DesignationController::class,'destroy'])->name('admin.designation.delete');
 
     //Salary Payment
-    Route::get('salary-payment',[SalaryPaymentController::class,'salaryPayment'])->name('admin.salary.payment');
-
+    Route::get('salary-payment',[SalaryPaymentController::class,'index'])->name('admin.salary.payment');
+    Route::post('salary-payment-store',[SalaryPaymentController::class,'store'])->name('admin.salary.payment.store');
+    Route::delete('salary-payment-delete/{id}',[SalaryPaymentController::class,'destroy'])->name('admin.salary.payment.delete');
 
     //Logout
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
