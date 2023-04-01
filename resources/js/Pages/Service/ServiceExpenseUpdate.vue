@@ -3,16 +3,16 @@
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
             <a class="breadcrumb-item" href="#">Accounting</a>
-            <a class="breadcrumb-item" href="#">Service</a>
+            <a class="breadcrumb-item" href="#">Service Expense</a>
         </nav>
         <div class="sl-pagebody">
             <div class="sl-page-title">
-                <h5>Service</h5>
+                <h5>Service Expense</h5>
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Service Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Service Expense Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -26,18 +26,18 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Customer Type: <span class="tx-danger">*</span></label>
-                                    <select class="form-control" name="customer_type" v-model="form.customer_type" data-placeholder="Choose Customer Type">
-                                        <option label="Choose Customer Type" ></option>
-                                        <option value="1">Generale Customer</option>
-                                        <option value="2">New Customer</option>
+                                    <label class="form-control-label">Supplier Type: <span class="tx-danger">*</span></label>
+                                    <select class="form-control" name="supplier_type" v-model="form.supplier_type" data-placeholder="Choose Supplier Type">
+                                        <option label="Choose Supplier Type" ></option>
+                                        <option value="1">Generale Supplier</option>
+                                        <option value="2">New Supplier</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="customer_name"  v-model="form.customer_name"  placeholder="Enter Customer Name">
+                                    <label class="form-control-label">Supplier Name: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="supplier_name"  v-model="form.supplier_name"  placeholder="Enter Supplier Name">
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
@@ -157,58 +157,42 @@
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
-import Swal from "sweetalert2";
 export default {
-    name: "ServiceAdd",
+    name: "ServiceExpenseUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        serviceExpense:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                sub_total:'',
-                grand_total:'',
-                paid_amount:'',
-                due_amount:'',
+                item_id:this.serviceExpense.item_id,
+                supplier_type:this.serviceExpense.supplier_type,
+                supplier_name:this.serviceExpense.supplier_name,
+                phone:this.serviceExpense.phone,
+                address:this.serviceExpense.address,
+                details:this.serviceExpense.details,
+                qty:this.serviceExpense.qty,
+                rate:this.serviceExpense.rate,
+                date:this.serviceExpense.date,
+                total:this.serviceExpense.total,
+                discount:this.serviceExpense.discount,
+                vat:this.serviceExpense.vat,
+                sub_total:this.serviceExpense.sub_total,
+                grand_total:this.serviceExpense.grand_total,
+                institution:this.serviceExpense.institution,
+                paid_amount:this.serviceExpense.paid_amount,
+                due_amount:this.serviceExpense.due_amount,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.service.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Service Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.service.expense.update',this.serviceExpense.id))
+            this.form.reset();
+        }
     },
 }
 </script>

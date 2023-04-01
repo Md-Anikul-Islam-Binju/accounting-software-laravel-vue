@@ -11,8 +11,8 @@
             </div>
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Service Add</h6>
-                <form @submit.prevent="submit">
+                <h6 class="card-body-title">Service Update</h6>
+                <form @submit.prevent="update">
                     <div class="form-layout">
                         <div class="row">
                             <div class="col-lg-4">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="form-layout-footer">
-                            <button class="btn btn-info mg-r-5">Submit</button>
+                            <button class="btn btn-info mg-r-5">Update</button>
                         </div>
                     </div>
                 </form>
@@ -157,58 +157,42 @@
 
 <script>
 import AdminIndex from "@/Pages/AdminIndex";
-import Swal from "sweetalert2";
 export default {
-    name: "ServiceAdd",
+    name: "ServiceUpdate",
     components: {AdminIndex},
     props:{
         items:Object,
-
+        service:Object,
     },
     data(){
         return{
             form:this.$inertia.form({
-                item_id:'',
-                customer_type:'',
-                customer_name:'',
-                phone:'',
-                address:'',
-                details:'',
-                qty:'',
-                rate:'',
-                date:'',
-                institution:'',
-                total:'',
-                discount:'',
-                vat:'',
-                sub_total:'',
-                grand_total:'',
-                paid_amount:'',
-                due_amount:'',
+                item_id:this.service.item_id,
+                customer_type:this.service.customer_type,
+                customer_name:this.service.customer_name,
+                phone:this.service.phone,
+                address:this.service.address,
+                details:this.service.details,
+                qty:this.service.qty,
+                rate:this.service.rate,
+                date:this.service.date,
+                total:this.service.total,
+                discount:this.service.discount,
+                vat:this.service.vat,
+                sub_total:this.service.sub_total,
+                grand_total:this.service.grand_total,
+                institution:this.service.institution,
+                paid_amount:this.service.paid_amount,
+                due_amount:this.service.due_amount,
             })
         }
     },
 
     methods:{
-        submit(){
-            if(this.form.isDirty==true)
-            {
-                this.form.post(route('admin.service.store'))
-                this.form.reset();
-                Swal.fire(
-                    'Success!',
-                    'You Service Data Submit Successfully!',
-                    'success'
-                )
-            }
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Something went wrong!',
-                    'error'
-                )
-            }
-        },
+        update(){
+            this.form.post(route('admin.service.update',this.service.id))
+            this.form.reset();
+        }
     },
 }
 </script>

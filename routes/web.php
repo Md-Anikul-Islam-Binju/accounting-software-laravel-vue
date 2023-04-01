@@ -196,13 +196,28 @@ Route::middleware('auth')->group(function () {
 
 
     //Service
-    Route::get('service',[ServiceController::class,'service'])->name('admin.service');
+    Route::get('service',[ServiceController::class,'index'])->name('admin.service');
     Route::get('service-list',[ServiceController::class,'serviceList'])->name('admin.service.list');
+    Route::post('service-store',[ServiceController::class,'store'])->name('admin.service.store');
+    Route::get('service-edit/{id}',[ServiceController::class,'edit'])->name('admin.service.edit');
+    Route::post('service-update/{id}',[ServiceController::class,'update'])->name('admin.service.update');
+    Route::delete('service-delete/{id}',[ServiceController::class,'destroy'])->name('admin.service.delete');
     Route::get('service-voucher',[ServiceController::class,'serviceVoucher'])->name('admin.service.voucher');
+
+
     //Service Expense
     Route::get('service-expense',[ServiceController::class,'serviceExpense'])->name('admin.service.expense');
-    Route::get('service-order-list',[ServiceController::class,'serviceExpenseList'])->name('admin.service.expense.list');
+    Route::get('service-expense-list',[ServiceController::class,'serviceExpenseList'])->name('admin.service.expense.list');
+    Route::post('service-expense-store',[ServiceController::class,'storeServiceExpense'])->name('admin.service.expense.store');
+    Route::get('service-expense-edit/{id}',[ServiceController::class,'editServiceExpense'])->name('admin.service.expense.edit');
+    Route::post('service-expense-update/{id}',[ServiceController::class,'updateServiceExpense'])->name('admin.service.expense.update');
+    Route::delete('service-expense-delete/{id}',[ServiceController::class,'destroyServiceExpense'])->name('admin.service.expense.delete');
+
+
     Route::get('service-order-voucher',[ServiceController::class,'serviceExpenseVoucher'])->name('admin.service.expense.voucher');
+
+
+
     //Purchase
     Route::get('purchase',[PurchaseController::class,'purchase'])->name('admin.purchase');
     Route::get('purchase-list',[PurchaseController::class,'purchaseList'])->name('admin.purchase.list');
@@ -287,8 +302,14 @@ Route::middleware('auth')->group(function () {
 
     //Customer
     Route::get('customer',[CustomerController::class,'customer'])->name('admin.customer');
+
+
     //Branch Transaction
-    Route::get('branch-transaction',[BranchTransactionController::class,'branchTransaction'])->name('admin.branch.transaction');
+    Route::get('branch-transaction',[BranchTransactionController::class,'index'])->name('admin.branch.transaction');
+    Route::post('branch-transaction-store',[BranchTransactionController::class,'store'])->name('admin.branch.transaction.store');
+    Route::get('branch-transaction-edit/{id}',[BranchTransactionController::class,'edit'])->name('admin.branch.transaction.edit');
+    Route::post('branch-transaction-update/{id}',[BranchTransactionController::class,'update'])->name('admin.branch.transaction.update');
+    Route::delete('branch-transaction-delete/{id}',[BranchTransactionController::class,'destroy'])->name('admin.branch.transaction.delete');
 
 
     //Attendance
