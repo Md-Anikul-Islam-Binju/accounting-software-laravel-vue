@@ -16,7 +16,7 @@
                             <a href="" class="tx-white-8 hover-white"><i class="icon ion-android-more-horizontal"></i></a>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">$850</h3>
+                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">00</h3>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                             <a href="" class="tx-white-8 hover-white"><i class="icon ion-android-more-horizontal"></i></a>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">$4,625</h3>
+                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">00</h3>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <a href="" class="tx-white-8 hover-white"><i class="icon ion-android-more-horizontal"></i></a>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">$11,908</h3>
+                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">00</h3>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                             <a href="" class="tx-white-8 hover-white"><i class="icon ion-android-more-horizontal"></i></a>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">$91,239</h3>
+                            <h3 class="mg-b-0 tx-white tx-lato tx-bold">00</h3>
                         </div>
                     </div>
                 </div>

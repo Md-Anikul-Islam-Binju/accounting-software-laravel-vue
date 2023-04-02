@@ -52,7 +52,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        //'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -331,7 +331,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('expense-delete/{id}',[ExpenseController::class,'destroy'])->name('admin.expense.delete');
 
     //Customer
-    Route::get('customer',[CustomerController::class,'customer'])->name('admin.customer');
+    Route::get('customer',[CustomerController::class,'index'])->name('admin.customer');
+    Route::post('customer-store',[CustomerController::class,'store'])->name('admin.customer.store');
+    Route::delete('customer-delete/{id}',[CustomerController::class,'destroy'])->name('admin.customer.delete');
 
 
     //Branch Transaction
